@@ -1,7 +1,7 @@
 import { AuthSession } from "@supabase/supabase-js";
 import { Component, createEffect, createSignal } from "solid-js";
-import PlantImage from "./PlantImage";
 import { supabase } from "../supabaseClient";
+import PlantImage from "./PlantImage";
 
 interface Props {
   session: AuthSession;
@@ -14,9 +14,7 @@ const DiaryEntry: Component<Props> = ({ session }) => {
   const [dateBought, setDateBought] = createSignal<Date | null>(null);
   const [placement, setPlacement] = createSignal<string | null>(null);
   const [lastWater, setLastWater] = createSignal<Date | null>(null);
-  const [lastFertilizer, setLasteFertilizer] = createSignal<Date | null>(
-    null
-  );
+  const [lastFertilizer, setLasteFertilizer] = createSignal<Date | null>(null);
   const [imageUrl, setImageUrl] = createSignal<string | null>(null);
 
   createEffect(() => {
@@ -94,21 +92,20 @@ const DiaryEntry: Component<Props> = ({ session }) => {
 
   return (
     <div aria-live="polite">
-      <form onSubmit={updateDiary} class="form-widget"
-      style={{"align-content": "flex-start", "text-align": "start"}}
+      <form
+        onSubmit={updateDiary}
+        class="form-widget"
+        style={{ "align-content": "flex-start", "text-align": "start" }}
       >
         <h2>Внеси ново растение во вашиот дневник</h2>
-        <div style = {{ "align-content":"flex-start"}}>
+        <div style={{ "align-content": "flex-start" }}>
           <label for="name">Име: </label>
           <input
             id="name"
             type="text"
             class="my-2"
             value={name() || ""}
-            onChange={(e) => {
-              console.log(e.currentTarget.value);
-              setName(e.currentTarget.value);
-            }}
+            onChange={(e) => setName(e.currentTarget.value)}
           />
         </div>
         <div>
@@ -118,10 +115,7 @@ const DiaryEntry: Component<Props> = ({ session }) => {
             type="text"
             class="mb-2"
             value={tip() || ""}
-            onChange={(e) => {
-              console.log(e.currentTarget.value);
-              setTip(e.currentTarget.value);
-            }}
+            onChange={(e) => setTip(e.currentTarget.value)}
           />
         </div>
         <div>
@@ -131,10 +125,7 @@ const DiaryEntry: Component<Props> = ({ session }) => {
             type="date"
             class="mb-2"
             value={dateBought()?.toISOString().substring(0, 10) || ""}
-            onChange={(e) => {
-              console.log(e.currentTarget.value);
-              setDateBought(new Date(e.currentTarget.value));
-            }}
+            onChange={(e) => setDateBought(new Date(e.currentTarget.value))}
           />
         </div>
         <div>
@@ -144,10 +135,7 @@ const DiaryEntry: Component<Props> = ({ session }) => {
             type="text"
             class="mb-2"
             value={placement() || ""}
-            onChange={(e) => {
-              console.log(e.currentTarget.value);
-              setPlacement(e.currentTarget.value);
-            }}
+            onChange={(e) => setPlacement(e.currentTarget.value)}
           />
         </div>
         <div>
@@ -157,10 +145,7 @@ const DiaryEntry: Component<Props> = ({ session }) => {
             type="date"
             class="mb-2"
             value={lastWater()?.toISOString().substring(0, 10) || ""}
-            onChange={(e) => {
-              console.log(e.currentTarget.value);
-              setLastWater(new Date(e.currentTarget.value));
-            }}
+            onChange={(e) => setLastWater(new Date(e.currentTarget.value))}
           />
         </div>
         <div>
@@ -170,17 +155,15 @@ const DiaryEntry: Component<Props> = ({ session }) => {
             type="date"
             class="mb-2"
             value={lastFertilizer()?.toISOString().substring(0, 10) || ""}
-            onChange={(e) => {
-              console.log(e.currentTarget.value);
-              setLasteFertilizer(new Date(e.currentTarget.value));
-            }}
+            onChange={(e) =>
+              setLasteFertilizer(new Date(e.currentTarget.value))
+            }
           />
         </div>
         <PlantImage
           url={imageUrl()}
           size={100}
           onUpload={(e: Event, url: string) => {
-            console.log(e.currentTarget);
             setImageUrl(url);
             updateDiary(e);
           }}
@@ -189,7 +172,7 @@ const DiaryEntry: Component<Props> = ({ session }) => {
           <button
             type="submit"
             class="btn btn-outline-light btn-lg my-2"
-            style={{"background-color": "#78b389"}}
+            style={{ "background-color": "#78b389" }}
             disabled={loading()}
           >
             {loading() ? "Се зачуваува ..." : "Ажурирај"}

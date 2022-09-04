@@ -27,7 +27,7 @@ const PlantImage: Component<Props> = (props) => {
       setImageUrl(url);
     } catch (error) {
       if (error instanceof Error) {
-        console.log("Error downloading image: ", error.message);
+        console.error("Error downloading image: ", error.message);
       }
     }
   };
@@ -67,7 +67,10 @@ const PlantImage: Component<Props> = (props) => {
   };
 
   return (
-    <div style={{ width: props.size, "align-content": "flex-end" }} aria-live="polite">
+    <div
+      style={{ width: props.size, "align-content": "flex-end" }}
+      aria-live="polite"
+    >
       {imageUrl() ? (
         <img
           src={imageUrl()!}

@@ -71,7 +71,7 @@ const Footer: Component<FooterProps> = (props) => {
           }}
         >
           © 2022 Copyright:
-          <a class="text-white" href="">
+          <a class="text-white">
             Бубамара
           </a>
         </div>

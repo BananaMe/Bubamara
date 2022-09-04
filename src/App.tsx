@@ -14,7 +14,7 @@ import Quiz from "./components/QuizOrchid";
 import { supabase } from "./supabaseClient";
 import Navigation from "./components/Navigation";
 
-const App: Component = (props) => {
+const App: Component = () => {
   const [session, setSession] = createSignal<AuthSession | null>(null);
 
   createEffect(() => {

@@ -1,21 +1,29 @@
 import { createForm } from "@felte/solid";
-import { Component, createSignal } from "solid-js";
+import _ from "lodash";
+import { Button } from "solid-bootstrap";
+import { Component, createSignal, Show } from "solid-js";
 import data from "../Quiz.json";
+import QuizResults from "./QuizResults";
 import RadioGroup from "./RadioGroup";
+
+const questions = _.shuffle(data.questions);
 
 const QuizOrchid: Component = () => {
   const [questionNo, setQuestionNo] = createSignal(0);
   const [score, setScore] = createSignal(0);
+  const [info, setInfo] = createSignal<string | undefined>();
   const getQuestion = () =>
-    data.questions[Math.min(data.questions.length - 1, questionNo())];
-  const getQuestions = () => [
-    getQuestion().correct,
-    ...getQuestion().incorrect,
-  ];
+    questions[Math.min(questions.length - 1, questionNo())];
+  const getChoices = () =>
+    _.shuffle([getQuestion().correct, ...getQuestion().incorrect]);
 
   const { form } = createForm({
     onSubmit: (values) => {
-      console.log(values["quiz-answers"]);
+      if (!values["quiz-answers"]) {
+        setInfo("Селектирајте одговор!");
+        return;
+      }
+      setInfo();
       if (values["quiz-answers"] === getQuestion().correct) {
         setScore(score() + 1);
       }
@@ -23,27 +31,71 @@ const QuizOrchid: Component = () => {
     },
   });
 
+  const reset = () => {
+    setQuestionNo(0);
+    setScore(0);
+    setInfo();
+  };
+
   return (
-    <>
-      <h3>Score: {score()}</h3>
-      <div
-      style={{"display": "block", "width": "60%", "border-style": "dashed", "margin": "auto"}}>
-        <h3
-        style={{"margin-left": "20px", "padding-top": "10px", "text-align": "start"}}
-        >{getQuestion().text}</h3>
-        <form ref={form}>
-          <RadioGroup data={getQuestions()} name="quiz-answers"/>
-          <button
-            type="submit"
-            class="btn btn-outline-light"
-            style={{ "background-color": "#78b389",
-            "margin": "1%"}}
+    <div style={{ "padding-top": "1rem" }}>
+      <Show
+        when={questionNo() < questions.length}
+        fallback={
+          <QuizResults
+            score={score}
+            totalQuestions={questions.length}
+            reset={reset}
+          />
+        }
+      >
+        <div
+          style={{
+            display: "block",
+            width: "60%",
+            "border-style": "dashed",
+            margin: "auto",
+          }}
+        >
+          <h2
+            style={{
+              "margin-left": "2rem",
+              "padding-top": "1rem",
+              "text-align": "start",
+              "font-size": "1.25rem",
+              color: "#808080",
+            }}
           >
-            Next question
-          </button>
-        </form>
-      </div>
-    </>
+            Прашање {questionNo()} од {questions.length}
+          </h2>
+          <h3
+            style={{
+              "margin-left": "20px",
+              "text-align": "start",
+            }}
+          >
+            {getQuestion().text}
+          </h3>
+          <form ref={form}>
+            <RadioGroup data={getChoices()} name="quiz-answers" />
+            <p style={{ color: "red", margin: 0, "font-weight": 500 }}>
+              {info()}
+            </p>
+            <Button
+              type="submit"
+              variant="outline-light"
+              style={{
+                "background-color": "#78b389",
+                margin: "1rem",
+                "font-size": "1.5rem",
+              }}
+            >
+              Следно прашање
+            </Button>
+          </form>
+        </div>
+      </Show>
+    </div>
   );
 };
 
