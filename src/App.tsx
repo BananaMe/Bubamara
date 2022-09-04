@@ -119,7 +119,6 @@ const App: Component = () => {
             </Match>
             <Match when={page() == "diary"}>
               <DiaryBasic session={session()!} />
-              {/* <DiaryImage /> */}
             </Match>
           </Switch>
           <Show when={page() !== "login"}>

@@ -11,7 +11,7 @@ const Gallery: Component = () => {
     "https://www.chicagobotanic.org/sites/default/files/images/blog/orchid_roots.jpg",
     "https://i.etsystatic.com/5565666/r/il/ddf4ea/3062257428/il_fullxfull.3062257428_sc6w.jpg",
     "https://images.pexels.com/photos/2820119/pexels-photo-2820119.jpeg",
-    "https://orchidfriends.com/wp-content/uploads/2018/11/why-orchid-flowers-fall-spike.jpg"
+    "https://orchidfriends.com/wp-content/uploads/2018/11/why-orchid-flowers-fall-spike.jpg",
     // "https://images.squarespace-cdn.com/content/v1/57f3f3aa9f745678e929032f/1511990967538-HWSA79YYGRXP1TT8RWFI/_MG_8700_chelsaeanne.jpg",
     // "https://images.unsplash.com/photo-1576014131341-fe1486fb2475"
   ];
@@ -34,12 +34,7 @@ const Gallery: Component = () => {
       columnClassName="my-masonry-grid_column"
       each={data}
     >
-      {(item) => (
-        <img src={item}></img>
-      )}
-      {/* {(item) => <div style={{height: randomHeight() + 'px'}}>
-				{item}
-				</div>} */}
+      {(item) => <img src={item}></img>}
     </Masonry>
   );
 };
