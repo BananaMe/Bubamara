@@ -1,18 +1,18 @@
-import { Component, createSignal, createEffect, Switch, Match } from "solid-js";
+import { Container, Row } from "solid-bootstrap";
+import { Component, createEffect, createSignal, Match, Switch } from "solid-js";
 import styles from "./App.module.css";
-import Navigation from "./components/Navigation";
-import logo from "./logo.svg";
 import Card from "./components/Cards";
-import { Col, Container, Row } from "solid-bootstrap";
-import Lecture from "./components/Lecture";
 import DiaryBasic from "./components/DiaryBasic";
+import Lecture from "./components/Lecture";
+import logo from "./logo.svg";
 // import DiaryImage from "./components/DiaryImage";
-import { supabase } from "./supabaseClient";
 import { AuthSession } from "@supabase/supabase-js";
 import Account from "./components/Account";
 import Auth from "./components/Auth";
 import Footer from "./components/Footer";
 import Quiz from "./components/QuizOrchid";
+import { supabase } from "./supabaseClient";
+import Navigation from "./components/Navigation";
 
 const App: Component = (props) => {
   const [session, setSession] = createSignal<AuthSession | null>(null);
@@ -32,6 +32,7 @@ const App: Component = (props) => {
   return (
     <>
       <div class={styles.App}>
+        {page() == "login" ? undefined : <Navigation onButtonClick={setPage} />}
         <Switch fallback={<p>Има некоја грешка!</p>}>
           <Match when={page() == "login"}>
             <div class="container" style={{ padding: "50px 0 100px 0" }}>
@@ -42,9 +43,7 @@ const App: Component = (props) => {
               )}
             </div>
           </Match>
-
           <Match when={page() == "home"}>
-            <Navigation onButton={setPage} />
             <img src={logo} class={styles.logo} alt="logo" />
             <Container class={styles.App}>
               <Row class="justify-content-around">
@@ -52,77 +51,65 @@ const App: Component = (props) => {
                   title="Почва"
                   subtitle="Почетен курс"
                   text="почетен курс за проучување на почва"
-                  onButton={setPage}
+                  onButtonClick={() => setPage("lecture")}
                   buttonText="Линк до курсот"
                 />
                 <Card
                   title="Орхидеа"
                   subtitle="Почетен курс"
                   text="почетен курс за чување орхидеи"
-                  onButton={setPage}
+                  onButtonClick={() => setPage("lecture")}
                   buttonText="Линк до курсот"
                 />
                 <Card
                   title="Светлина"
                   subtitle="Почетен курс"
                   text="почетен курс за светлина учење"
-                  onButton={setPage}
+                  onButtonClick={() => setPage("lecture")}
                   buttonText="Линк до курсот"
                 />
               </Row>
             </Container>
-            <Footer onButton={setPage} />
           </Match>
-
           <Match when={page() == "quiz"}>
-            <Navigation onButton={setPage} />
             <Container class={styles.App}>
               <Row class="justify-content-around">
                 <Card
                   title="Почва"
                   subtitle="Тест"
                   text="Тест на знаење за почетниот курс „Почва“"
-                  onButton={() => setPage("quizOrchid")}
+                  onButtonClick={() => setPage("quizOrchid")}
                   buttonText="Линк до тестот"
                 />
                 <Card
                   title="Орхидеа"
                   subtitle="Тест"
                   text="Тест на знаење за почетниот курс „Орхидеи“"
-                  onButton={() => setPage("quizOrchid")}
+                  onButtonClick={() => setPage("quizOrchid")}
                   buttonText="Линк до тестот"
                 />
                 <Card
                   title="Светлина"
                   subtitle="Тест"
                   text="Тест на знаење за почетниот курс „Светлина“"
-                  onButton={() => setPage("quizOrchid")}
+                  onButtonClick={() => setPage("quizOrchid")}
                   buttonText="Линк до тестот"
                 />
               </Row>
             </Container>
-            <Footer onButton={setPage} />
           </Match>
-
           <Match when={page() == "lecture"}>
-            <Navigation onButton={setPage} />
             <Lecture />
-            <Footer onButton={setPage} />
           </Match>
-
           <Match when={page() == "quizOrchid"}>
-            <Navigation onButton={setPage} />
             <Quiz />
-            <Footer onButton={setPage} />
           </Match>
-
           <Match when={page() == "diary"}>
-            <Navigation onButton={setPage} />
             <DiaryBasic session={session()!} />
             {/* <DiaryImage /> */}
-            <Footer onButton={setPage} />
           </Match>
         </Switch>
+        {page() == "login" ? undefined : <Footer onButtonClick={setPage} />}
       </div>
     </>
   );

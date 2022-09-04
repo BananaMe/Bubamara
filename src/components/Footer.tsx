@@ -2,11 +2,11 @@ import { Container } from "solid-bootstrap";
 import { Component } from "solid-js";
 
 export interface FooterProps {
-  onButton: (page: string) => void;
+  onButtonClick: (page: string) => void;
 }
 
 const Footer: Component<FooterProps> = (props) => {
-  const { onButton } = props;
+  const { onButtonClick } = props;
 
   return (
     <Container>
@@ -28,7 +28,7 @@ const Footer: Component<FooterProps> = (props) => {
             style={{
               "background-color": "#bbd9c4",
             }}
-            onClick={() => onButton("home")}
+            onClick={() => onButtonClick("home")}
           >
             Дома
           </button>
@@ -38,7 +38,7 @@ const Footer: Component<FooterProps> = (props) => {
             style={{
               "background-color": "#bbd9c4",
             }}
-            onClick={() => onButton("lecture")}
+            onClick={() => onButtonClick("lecture")}
           >
             Курсеви
           </button>
@@ -48,7 +48,7 @@ const Footer: Component<FooterProps> = (props) => {
             style={{
               "background-color": "#bbd9c4",
             }}
-            onClick={() => onButton("quiz")}
+            onClick={() => onButtonClick("quiz")}
           >
             Тестови
           </button>
@@ -58,7 +58,7 @@ const Footer: Component<FooterProps> = (props) => {
             style={{
               "background-color": "#bbd9c4",
             }}
-            onClick={() => onButton("diary")}
+            onClick={() => onButtonClick("diary")}
           >
             Дневник
           </button>
