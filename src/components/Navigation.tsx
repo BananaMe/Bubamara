@@ -9,6 +9,7 @@ import {
 import { FaSolidMagnifyingGlass } from "solid-icons/fa";
 import { Component } from "solid-js";
 import logo from "../logo.svg";
+import { supabase } from "../supabaseClient";
 import HeaderLogo from "./HeaderLogo";
 
 export interface NavigationProps {
@@ -42,15 +43,14 @@ const Navigation: Component<NavigationProps> = (props) => {
             <FaSolidMagnifyingGlass size={24} color="#000000" />
           </Button>
         </Form>
-        {/* <form onSubmit={Account.updateProfile} class="form-widget">
-          <button
-            type="button"
-            class="button block"
+        <form class="form-widget">
+          <Button
+          variant="secondary"
             onClick={() => supabase.auth.signOut()}
           >
             Одјавете се
-          </button>
-        </form> */}
+          </Button>
+        </form>
       </Container>
     </Navbar>
   );
