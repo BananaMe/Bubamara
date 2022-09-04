@@ -1,7 +1,5 @@
 .App {
   text-align: center;
-  background-color: #f2f2f2;
-  height: 100%;
   width: 100%;
 }
 
@@ -24,7 +22,9 @@
   border-width: 2px;
 }
 
-.sign_in
+.body, .root {
+  background-color: #f2f2f2;
+}
 
 .Lecture {
   text-align: left;

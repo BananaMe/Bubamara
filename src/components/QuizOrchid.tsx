@@ -3,7 +3,7 @@ import { Component, createSignal } from "solid-js";
 import data from "../Quiz.json";
 import RadioGroup from "./RadioGroup";
 
-const Quiz: Component = () => {
+const QuizOrchid: Component = () => {
   const [questionNo, setQuestionNo] = createSignal(0);
   const [score, setScore] = createSignal(0);
   const getQuestion = () =>
@@ -27,14 +27,17 @@ const Quiz: Component = () => {
     <>
       <h3>Score: {score()}</h3>
       <div
-      style={{"display": "block", "width": "60%", "border-style": "dashed",}}>
-        <h3>{getQuestion().text}</h3>
+      style={{"display": "block", "width": "60%", "border-style": "dashed", "margin": "auto"}}>
+        <h3
+        style={{"margin-left": "20px", "padding-top": "10px", "text-align": "start"}}
+        >{getQuestion().text}</h3>
         <form ref={form}>
           <RadioGroup data={getQuestions()} name="quiz-answers"/>
           <button
             type="submit"
             class="btn btn-outline-light"
-            style={{ "background-color": "#78b389" }}
+            style={{ "background-color": "#78b389",
+            "margin": "1%"}}
           >
             Next question
           </button>
@@ -44,4 +47,4 @@ const Quiz: Component = () => {
   );
 };
 
-export default Quiz;
+export default QuizOrchid;

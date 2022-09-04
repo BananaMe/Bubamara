@@ -13,8 +13,8 @@ const Radio: Component<RadioProps> = (props) => {
     <div
       style={{
         flex: "block",
-        "text-align": "start",
-        "margin-left": "10px",
+        "margin-left": "50px",
+        "text-align": "start"
       }}
     >
       <input type="radio" name={name} value={value} id={id}></input>

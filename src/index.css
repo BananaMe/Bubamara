@@ -13,5 +13,9 @@ code {
 
 body, #root, html {
   height: 100%;
+  background-color: #f2f2f2;
   width: 100%;
+}
+#root {
+  overflow: auto;
 }
