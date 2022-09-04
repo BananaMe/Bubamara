@@ -26,11 +26,18 @@ const Quiz: Component = () => {
   return (
     <>
       <h3>Score: {score()}</h3>
-      <div>
+      <div
+      style={{"display": "block", "width": "60%", "border-style": "dashed",}}>
         <h3>{getQuestion().text}</h3>
         <form ref={form}>
-          <RadioGroup data={getQuestions()} name="quiz-answers" />
-          <button type="submit">Next question</button>
+          <RadioGroup data={getQuestions()} name="quiz-answers"/>
+          <button
+            type="submit"
+            class="btn btn-outline-light"
+            style={{ "background-color": "#78b389" }}
+          >
+            Next question
+          </button>
         </form>
       </div>
     </>

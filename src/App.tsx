@@ -6,7 +6,7 @@ import Card from "./components/Cards";
 import { Col, Container, Row } from "solid-bootstrap";
 import Lecture from "./components/Lecture";
 import DiaryBasic from "./components/DiaryBasic";
-import DiaryImage from "./components/DiaryImage";
+// import DiaryImage from "./components/DiaryImage";
 import { supabase } from "./supabaseClient";
 import { AuthSession } from "@supabase/supabase-js";
 import Account from "./components/Account";
@@ -69,25 +69,29 @@ const App: Component = (props) => {
               </Row>
               <br></br>
             </Container>
+            <Footer onButton={setX} />
           </Match>
 
           <Match when={x() == "lecture"}>
             <Navigation onButton={setX} />
             <Lecture />
+            <Footer onButton={setX} />
           </Match>
 
           <Match when={x() == "quiz"}>
+            <Navigation onButton={setX} />
             <Quiz />
+            <Footer onButton={setX} />
           </Match>
 
           <Match when={x() == "diary"}>
             <Navigation onButton={setX} />
             <DiaryBasic session={session()!} />
-            <DiaryImage />
+            {/* <DiaryImage /> */}
+            <Footer onButton={setX} />
           </Match>
         </Switch>
       </div>
-      <Footer onButton={setX} />
     </>
   );
 };

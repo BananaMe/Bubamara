@@ -67,7 +67,7 @@ const PlantImage: Component<Props> = (props) => {
   };
 
   return (
-    <div style={{ width: props.size }} aria-live="polite">
+    <div style={{ width: props.size, "align-content": "flex-end" }} aria-live="polite">
       {imageUrl() ? (
         <img
           src={imageUrl()!}

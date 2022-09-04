@@ -94,9 +94,11 @@ const DiaryEntry: Component<Props> = ({ session }) => {
 
   return (
     <div aria-live="polite">
-      <form onSubmit={updateDiary} class="form-widget">
+      <form onSubmit={updateDiary} class="form-widget"
+      style={{"align-content": "flex-start", "text-align": "start"}}
+      >
         <h2>Внеси ново растение во вашиот дневник</h2>
-        <div>
+        <div style = {{ "align-content":"flex-start"}}>
           <label for="name">Име: </label>
           <input
             id="name"
@@ -176,7 +178,7 @@ const DiaryEntry: Component<Props> = ({ session }) => {
         </div>
         <PlantImage
           url={imageUrl()}
-          size={150}
+          size={100}
           onUpload={(e: Event, url: string) => {
             console.log(e.currentTarget);
             setImageUrl(url);
@@ -193,14 +195,14 @@ const DiaryEntry: Component<Props> = ({ session }) => {
             {loading() ? "Се зачуваува ..." : "Ажурирај"}
           </button>
         </div>
-        <button
+        {/* <button
           type="button"
           class="btn "
           style={{"background-color": "#bbd9c4"}}
           onClick={() => supabase.auth.signOut()}
         >
           Sign Out
-        </button>
+        </button> */}
       </form>
     </div>
   );

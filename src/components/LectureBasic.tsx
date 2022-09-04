@@ -8,7 +8,7 @@ const LectureBasic: Component = () => {
         <Container class={styles.Lecture}>
             <div>
                 <h2>Основни информации</h2>
-                <div style="">
+                <div style={{"text-align": "left"}}>
                     <ul>
                         <li>Латинско Име: Phalaenopsis Orchidacae</li>
                         <li>Лаичко Име: Moth Orchid</li>
