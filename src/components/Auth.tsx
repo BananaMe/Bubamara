@@ -1,6 +1,5 @@
 import { Component, createSignal } from "solid-js";
 import { supabase } from "../supabaseClient";
- 
 
 const Auth: Component = () => {
   const [loading, setLoading] = createSignal(false);
@@ -11,7 +10,12 @@ const Auth: Component = () => {
 
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signInWithOtp({ email: email() });
+      const { error } = await supabase.auth.signInWithOtp({
+        email: email(),
+        options: {
+          emailRedirectTo: "https://bananame.github.io/Bubamara/",
+        },
+      });
       if (error) throw error;
       alert("Check your email for the login link!");
     } catch (error) {
@@ -27,7 +31,9 @@ const Auth: Component = () => {
     <div class="row flex-center flex justify-content-md-center">
       <div class="col-6 form-widget" aria-live="polite">
         <h1 class="header">Бубамара</h1>
-        <p class="description">Внеси мејл за да се регистрирате во бубамара системот</p>
+        <p class="description">
+          Внеси мејл за да се регистрирате во бубамара системот
+        </p>
         <form class="form-widget" onSubmit={handleLogin}>
           <div>
             <label for="email">Email:</label>
@@ -49,6 +55,6 @@ const Auth: Component = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Auth;
