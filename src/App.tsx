@@ -20,6 +20,7 @@ import Footer from "./components/Footer";
 import Navigation from "./components/Navigation";
 import Quiz from "./components/QuizOrchid";
 import { supabase } from "./supabaseClient";
+import Diary from "./components/Diary";
 
 const App: Component = () => {
   const [session, setSession] = createSignal<AuthSession | null>(null);
@@ -118,7 +119,7 @@ const App: Component = () => {
               <Quiz />
             </Match>
             <Match when={page() == "diary"}>
-              <DiaryBasic session={session()!} />
+              <Diary session={session()!} />
             </Match>
           </Switch>
           <Show when={page() !== "login"}>

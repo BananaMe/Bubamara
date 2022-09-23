@@ -13,7 +13,8 @@ const Auth: Component = () => {
       const { error } = await supabase.auth.signInWithOtp({
         email: email(),
         options: {
-          emailRedirectTo: "https://bananame.github.io/Bubamara/",
+          // emailRedirectTo: "https://bananame.github.io/Bubamara/",
+          emailRedirectTo: "http://localhost:3000/",
         },
       });
       if (error) throw error;

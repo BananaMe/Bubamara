@@ -1,3 +1,4 @@
+import { createForm } from "@felte/solid";
 import { AuthSession } from "@supabase/supabase-js";
 import { Component, createEffect, createSignal } from "solid-js";
 import { supabase } from "../supabaseClient";
@@ -8,54 +9,15 @@ interface Props {
 }
 
 const DiaryEntry: Component<Props> = ({ session }) => {
-  const [loading, setLoading] = createSignal(true);
+  const [loading, setLoading] = createSignal(false);
+
   const [name, setName] = createSignal<string | null>(null);
   const [tip, setTip] = createSignal<string | null>(null);
-  const [dateBought, setDateBought] = createSignal<Date | null>(null);
+  const [dateBought, setDateBought] = createSignal<Date>();
   const [placement, setPlacement] = createSignal<string | null>(null);
   const [lastWater, setLastWater] = createSignal<Date | null>(null);
   const [lastFertilizer, setLasteFertilizer] = createSignal<Date | null>(null);
   const [imageUrl, setImageUrl] = createSignal<string | null>(null);
-
-  createEffect(() => {
-    getDiary();
-  });
-
-  const getDiary = async () => {
-    try {
-      setLoading(true);
-      const { user } = session;
-
-      let { data, error, status } = await supabase
-        .from("diaries")
-        .select(
-          `name, tip, date_bought, placement, last_water, last_fertilizer, image_url`
-        )
-        .eq("id", user.id)
-        .single();
-
-      if (error && status !== 406) {
-        throw error;
-      }
-
-      if (data) {
-        // setUsername(data.username);
-        setName(data.name);
-        setTip(data.tip);
-        setDateBought(data.date_bought);
-        setPlacement(data.placement);
-        setLastWater(data.last_water);
-        setLasteFertilizer(data.last_fertilizer);
-        setImageUrl(data.image_url);
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const updateDiary = async (e: Event) => {
     e.preventDefault();
@@ -64,19 +26,19 @@ const DiaryEntry: Component<Props> = ({ session }) => {
       setLoading(true);
       const { user } = session;
 
-      const updates = {
-        id: user.id,
+      const inserts = {
+        uuid: user.id,
         name: name(),
         tip: tip(),
-        dateBought: dateBought(),
+        date_bought: dateBought(),
         placement: placement(),
-        lastWater: lastWater(),
-        lastFertilizer: lastFertilizer(),
-        imageUrl: imageUrl(),
-        updated_at: new Date().toISOString(),
+        last_water: lastWater(),
+        last_fertilizer: lastFertilizer(),
+        image_url: imageUrl(),
       };
 
-      let { error } = await supabase.from("diaries").upsert(updates);
+      console.log(inserts);
+      let { error } = await supabase.from("diaries").insert(inserts);
 
       if (error) {
         throw error;
@@ -124,7 +86,7 @@ const DiaryEntry: Component<Props> = ({ session }) => {
             id="dateBought"
             type="date"
             class="mb-2"
-            value={dateBought()?.toISOString().substring(0, 10) || ""}
+            value={dateBought()?.toISOString().split('T')[0] || ""}
             onChange={(e) => setDateBought(new Date(e.currentTarget.value))}
           />
         </div>
@@ -144,7 +106,7 @@ const DiaryEntry: Component<Props> = ({ session }) => {
             id="lastWater"
             type="date"
             class="mb-2"
-            value={lastWater()?.toISOString().substring(0, 10) || ""}
+            value={lastWater()?.toISOString().split('T')[0] || ""}
             onChange={(e) => setLastWater(new Date(e.currentTarget.value))}
           />
         </div>
@@ -154,18 +116,16 @@ const DiaryEntry: Component<Props> = ({ session }) => {
             id="lastFertilizer"
             type="date"
             class="mb-2"
-            value={lastFertilizer()?.toISOString().substring(0, 10) || ""}
+            value={lastFertilizer()?.toISOString().split('T')[0] || ""}
             onChange={(e) =>
               setLasteFertilizer(new Date(e.currentTarget.value))
             }
           />
         </div>
         <PlantImage
-          url={imageUrl()}
           size={100}
           onUpload={(e: Event, url: string) => {
             setImageUrl(url);
-            updateDiary(e);
           }}
         />
         <div>
@@ -175,7 +135,7 @@ const DiaryEntry: Component<Props> = ({ session }) => {
             style={{ "background-color": "#78b389" }}
             disabled={loading()}
           >
-            {loading() ? "Се зачуваува ..." : "Ажурирај"}
+            {loading() ? "Внеси" : "Внеси"}
           </button>
         </div>
         {/* <button

@@ -1,6 +1,7 @@
 import { AuthSession } from "@supabase/supabase-js";
 import { Container } from "solid-bootstrap";
 import { Component } from "solid-js";
+import DiaryCards from "./DiaryCard";
 import DiaryEntry from "./DiaryEntry";
 
 interface DiaryProps {

@@ -1,9 +1,10 @@
+import { title } from "process";
 import { Container } from "solid-bootstrap";
 import { Component } from "solid-js";
 import styles from '../App.module.css';
 
-
 const LectureBasic: Component = () => {
+    
     return (
         <Container class={styles.Lecture}>
             <div>

@@ -3,34 +3,12 @@ import { supabase } from "../supabaseClient";
 
 interface Props {
   size: number;
-  url: string | null;
   onUpload: (event: Event, filePath: string) => void;
 }
 
 const PlantImage: Component<Props> = (props) => {
   const [imageUrl, setImageUrl] = createSignal<string | null>(null);
   const [uploading, setUploading] = createSignal(false);
-
-  createEffect(() => {
-    if (props.url) downloadImage(props.url);
-  });
-
-  const downloadImage = async (path: string) => {
-    try {
-      const { data, error } = await supabase.storage
-        .from("images")
-        .download(path);
-      if (error) {
-        throw error;
-      }
-      const url = URL.createObjectURL(data);
-      setImageUrl(url);
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error downloading image: ", error.message);
-      }
-    }
-  };
 
   const uploadImage: JSX.EventHandler<HTMLInputElement, Event> = async (
     event
