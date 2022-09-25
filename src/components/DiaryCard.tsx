@@ -1,6 +1,8 @@
 import { Card, ListGroup } from "solid-bootstrap";
 import { Component, createEffect, createSignal } from "solid-js";
 import { supabase } from "../supabaseClient";
+import "bootstrap/scss/bootstrap.scss";
+
 
 export interface DiaryCardProps {
   name: string;
@@ -25,7 +27,7 @@ const DiaryCard: Component<DiaryCardProps> = (props) => {
     imageUrl,
     onButtonClick,
     buttonText,
-    color = "#bbd9c4",
+    // color = "#bbd9c4",
   } = props;
 
   const [resolvedImageUrl, setResolvedImageUrl] = createSignal<string>();
@@ -54,20 +56,21 @@ const DiaryCard: Component<DiaryCardProps> = (props) => {
     <div>
       <Card
         style={{
-          width: "18rem",
-          "background-color": color,
+          width: "20rem",
+          // "background-color": color,
+          "margin-left": "2rem",
           "margin-top": "2rem",
         }}
       >
         <Card.Body>
-          <Card.Img variant="top" src={resolvedImageUrl()} />
+          <Card.Img variant="top" src={resolvedImageUrl()} style="border-style: solid; border-width: thin; border-radius: 5px; border-color: #d9e2ef" />
           <Card.Title>{name}</Card.Title>
           <Card.Subtitle class="mb-2 text-muted">{tip}</Card.Subtitle>
           <ListGroup variant="flush">
-            <ListGroup.Item>Датум земено: {dateBought}</ListGroup.Item>
-            <ListGroup.Item>Местоположба: {placement}</ListGroup.Item>
-            <ListGroup.Item>Последно полевање: {lastWater}</ListGroup.Item>
-            <ListGroup.Item>Последна прихрана: {lastFertilizer}</ListGroup.Item>
+            <ListGroup.Item style="padding: 5px">Датум земено: {dateBought}</ListGroup.Item>
+            <ListGroup.Item style="padding: 5px">Местоположба: {placement}</ListGroup.Item>
+            <ListGroup.Item style="padding: 5px">Последно полевање: {lastWater}</ListGroup.Item>
+            <ListGroup.Item style="padding: 5px">Последна прихрана: {lastFertilizer}</ListGroup.Item>
           </ListGroup>
           {/* <button class="btn btn-secondary" onclick={() => onButtonClick()}>
             {buttonText}

@@ -9,10 +9,8 @@ import {
 } from "solid-js";
 import styles from "./App.module.css";
 import Card from "./components/Cards";
-import DiaryBasic from "./components/DiaryBasic";
 import Lecture from "./components/Lecture";
 import logo from "./logo.svg";
-// import DiaryImage from "./components/DiaryImage";
 import { AuthSession } from "@supabase/supabase-js";
 import Account from "./components/Account";
 import Auth from "./components/Auth";
