@@ -2,11 +2,11 @@ import { Container } from "solid-bootstrap";
 import { Component } from "solid-js";
 import styles from "../App.module.css";
 
-const LectureLightFlower: Component = () => {
+const LectureOrchidLightFlower: Component = () => {
   return (
     <Container class={styles.Lecture}>
       <div>
-        <h2>Светлина, цвет и пропагација</h2>
+        <h2>Светлина, цвет</h2>
         <div style={{"text-align": "left"}}>
           <p>
             Орхидеите бараат недиректна светлина, поточно, што посветло а да не
@@ -32,4 +32,4 @@ const LectureLightFlower: Component = () => {
     </Container>
   );
 };
-export default LectureLightFlower;
+export default LectureOrchidLightFlower;

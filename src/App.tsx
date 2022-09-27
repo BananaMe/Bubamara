@@ -1,3 +1,4 @@
+import { AuthSession } from "@supabase/supabase-js";
 import { Container, Row } from "solid-bootstrap";
 import {
   Component,
@@ -5,20 +6,19 @@ import {
   createSignal,
   Match,
   Show,
-  Switch,
+  Switch
 } from "solid-js";
 import styles from "./App.module.css";
-import Card from "./components/Cards";
-import Lecture from "./components/Lecture";
-import logo from "./logo.svg";
-import { AuthSession } from "@supabase/supabase-js";
 import Account from "./components/Account";
 import Auth from "./components/Auth";
+import Card from "./components/Cards";
+import Diary from "./components/Diary";
 import Footer from "./components/Footer";
+import LectureOrchid from "./components/LectureOrchid";
 import Navigation from "./components/Navigation";
 import Quiz from "./components/QuizOrchid";
+import logo from "./logo.svg";
 import { supabase } from "./supabaseClient";
-import Diary from "./components/Diary";
 
 const App: Component = () => {
   const [session, setSession] = createSignal<AuthSession | null>(null);
@@ -111,7 +111,31 @@ const App: Component = () => {
               </Container>
             </Match>
             <Match when={page() == "lecture"}>
-              <Lecture />
+            <Container class={styles.App}>
+                <Row class="justify-content-around">
+                  <Card
+                    title="Почва"
+                    subtitle="Почетен курс"
+                    text="почетен курс за проучување на почва"
+                    onButtonClick={() => setPage("lectureSoil")}
+                    buttonText="Линк до курсот"
+                  />
+                  <Card
+                    title="Орхидеа"
+                    subtitle="Почетен курс"
+                    text="почетен курс за чување орхидеи"
+                    onButtonClick={() => setPage("lectureOrchid")}
+                    buttonText="Линк до курсот"
+                  />
+                  <Card
+                    title="Светлина"
+                    subtitle="Почетен курс"
+                    text="почетен курс за светлина учење"
+                    onButtonClick={() => setPage("lecture")}
+                    buttonText="Линк до курсот"
+                  />
+                </Row>
+              </Container>
             </Match>
             <Match when={page() == "quizOrchid"}>
               <Quiz />

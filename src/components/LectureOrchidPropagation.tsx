@@ -2,7 +2,7 @@ import { Container } from "solid-bootstrap";
 import { Component } from "solid-js";
 import styles from "../App.module.css";
 
-const LectureLightFlower: Component = () => {
+const LectureOrchidPropagation: Component = () => {
   return (
     <Container class={styles.Lecture}>
       <div>
@@ -34,4 +34,4 @@ const LectureLightFlower: Component = () => {
     </Container>
   );
 };
-export default LectureLightFlower;
+export default LectureOrchidPropagation;

@@ -1,4 +1,4 @@
-import { Card, ListGroup } from "solid-bootstrap";
+import { Button, Card, ListGroup } from "solid-bootstrap";
 import { Component, createEffect, createSignal } from "solid-js";
 import { supabase } from "../supabaseClient";
 import "bootstrap/scss/bootstrap.scss";
@@ -66,15 +66,14 @@ const DiaryCard: Component<DiaryCardProps> = (props) => {
           <Card.Img variant="top" src={resolvedImageUrl()} style="border-style: solid; border-width: thin; border-radius: 5px; border-color: #d9e2ef" />
           <Card.Title>{name}</Card.Title>
           <Card.Subtitle class="mb-2 text-muted">{tip}</Card.Subtitle>
-          <ListGroup variant="flush">
+          <ListGroup>
             <ListGroup.Item style="padding: 5px">Датум земено: {dateBought}</ListGroup.Item>
             <ListGroup.Item style="padding: 5px">Местоположба: {placement}</ListGroup.Item>
             <ListGroup.Item style="padding: 5px">Последно полевање: {lastWater}</ListGroup.Item>
             <ListGroup.Item style="padding: 5px">Последна прихрана: {lastFertilizer}</ListGroup.Item>
           </ListGroup>
-          {/* <button class="btn btn-secondary" onclick={() => onButtonClick()}>
-            {buttonText}
-          </button> */}
+          <Button variant="secondary">Ажурирај</Button>
+          <Button variant="secondary">Избриши</Button>
         </Card.Body>
       </Card>
     </div>

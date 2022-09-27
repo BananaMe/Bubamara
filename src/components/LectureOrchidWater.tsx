@@ -2,7 +2,7 @@ import { Container } from "solid-bootstrap";
 import { Component } from "solid-js";
 import styles from "../App.module.css";
 
-const LectureWater: Component = () => {
+const LectureOrchidWater: Component = () => {
   return (
     <Container class={styles.Lecture}>
       <div>
@@ -42,4 +42,4 @@ const LectureWater: Component = () => {
     </Container>
   );
 };
-export default LectureWater;
+export default LectureOrchidWater;

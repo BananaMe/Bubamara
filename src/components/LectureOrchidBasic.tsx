@@ -1,9 +1,8 @@
-import { title } from "process";
 import { Container } from "solid-bootstrap";
 import { Component } from "solid-js";
 import styles from '../App.module.css';
 
-const LectureBasic: Component = () => {
+const LectureOrchidBasic: Component = () => {
     
     return (
         <Container class={styles.Lecture}>
@@ -27,4 +26,4 @@ const LectureBasic: Component = () => {
     );
 }
 
-export default LectureBasic;
+export default LectureOrchidBasic;

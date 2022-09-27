@@ -1,13 +1,18 @@
 import { Container, Tab, Tabs } from "solid-bootstrap";
 import { Component, createSignal } from "solid-js";
-import Gallery from "./Gallery";
-import LectureBasic from "./LectureBasic";
-import LectureLightFlower from "./LectureLightFlower";
-import LecturePropagation from "./LecturePropagation";
-import LectureSoil from "./LectureSoil";
-import LectureWater from "./LectureWater";
+import Gallery from "./GalleryOrchid";
+import LectureLightFlower from "./LectureOrchidLightFlower";
+import LectureOrchidBasic from "./LectureOrchidBasic";
+import LecturePropagation from "./LectureOrchidPropagation";
+import LectureOrchidSoil from "./LectureOrchidSoil";
+import LectureSoil from "./LectureOrchidSoil";
+import LectureOrchidWater from "./LectureOrchidWater";
+import LectureWater from "./LectureOrchidWater";
+import LectureOrchidPropagation from "./LectureOrchidPropagation";
+import LectureOrchidLightFlower from "./LectureOrchidLightFlower";
+import GalleryOrchid from "./GalleryOrchid";
 
-const Lecture: Component = () => {
+const LectureOrchid: Component = () => {
   const [key, setKey] = createSignal("lectureBasic");
   return (
     <Container>
@@ -18,26 +23,26 @@ const Lecture: Component = () => {
         class="mb-3"
       >
         <Tab eventKey="lectureBasic" title="Основни Информации">
-          <LectureBasic />
+          <LectureOrchidBasic />
         </Tab>
         <Tab eventKey="lectureSoil" title="Почва">
-          <LectureSoil />
+          <LectureOrchidSoil />
         </Tab>
         <Tab eventKey="lectureWater" title="Наводнување">
-          <LectureWater />
+          <LectureOrchidWater />
         </Tab>
         <Tab eventKey="lectureLightFlower" title="Светлина и цветање">
-          <LectureLightFlower />
+          <LectureOrchidLightFlower />
         </Tab>
         <Tab eventKey="lecturePropagation" title="Пропагација">
-          <LecturePropagation />
+          <LectureOrchidPropagation />
         </Tab>
         <Tab eventKey="gallery" title="Галерија">
-            <Gallery/>
+          <GalleryOrchid />
         </Tab>
       </Tabs>
     </Container>
   );
 };
 
-export default Lecture;
+export default LectureOrchid;
