@@ -4,11 +4,13 @@ import { Component, createSignal } from "solid-js";
 import { supabase } from "../supabaseClient";
 import PlantImage from "./PlantImage";
 
-interface Props {
+interface DiaryEntryProps {
   session: AuthSession;
+  onSuccessfullySubmitted: () => void;
 }
 
-const DiaryEntry: Component<Props> = ({ session }) => {
+const DiaryEntry: Component<DiaryEntryProps> = (props) => {
+  const { session, onSuccessfullySubmitted } = props;
   const [loading, setLoading] = createSignal(false);
 
   const [name, setName] = createSignal<string | null>(null);
@@ -41,6 +43,8 @@ const DiaryEntry: Component<Props> = ({ session }) => {
 
       if (error) {
         throw error;
+      } else {
+        onSuccessfullySubmitted();
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -91,7 +95,7 @@ const DiaryEntry: Component<Props> = ({ session }) => {
             style={{ "background-color": "#78b389" }}
             disabled={loading()}
           >
-            {loading() ? "Внеси" : "Внеси"}
+            {loading() ? "Се внесува..." : "Внеси"}
           </button>
         </div>
       </form>

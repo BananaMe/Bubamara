@@ -68,7 +68,10 @@ const Diary: Component<Props> = ({ session }) => {
             </Row>
           }
         >
-          <DiaryEntry session={session} />
+          <DiaryEntry onSuccessfullySubmitted={() => {
+            fetchDiary();
+            setShowInput(false);
+          }} session={session} />
         </Show>
       </div>
     </div >
