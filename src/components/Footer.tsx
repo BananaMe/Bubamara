@@ -9,11 +9,11 @@ const Footer: Component<FooterProps> = (props) => {
   const { onButtonClick } = props;
 
   return (
-    <Container>
       <footer
         class="text-center text-lg-start"
         style={{
           position: "absolute",
+          padding: 0,
           bottom: 0,
           left: 0,
           "background-color": "#f2f2f2",
@@ -76,7 +76,6 @@ const Footer: Component<FooterProps> = (props) => {
           </a>
         </div>
       </footer>
-    </Container>
   );
 };
 export default Footer;

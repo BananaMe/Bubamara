@@ -1,8 +1,9 @@
-import { Component, createEffect, createSignal, JSX } from "solid-js";
+import { Component, createSignal, JSX } from "solid-js";
 import { supabase } from "../supabaseClient";
+import { downloadImage } from "./download-image";
 
 interface Props {
-  size: number;
+  width: number;
   onUpload: (event: Event, filePath: string) => void;
 }
 
@@ -22,19 +23,19 @@ const PlantImage: Component<Props> = (props) => {
       }
 
       const file = target.files[0];
+      setImageUrl(URL.createObjectURL(file));
       const fileExt = file.name.split(".").pop();
       const fileName = `${Math.random()}.${fileExt}`;
-      const filePath = `${fileName}`;
 
       let { error: uploadError } = await supabase.storage
         .from("images")
-        .upload(filePath, file);
+        .upload(fileName, file);
 
       if (uploadError) {
         throw uploadError;
       }
 
-      props.onUpload(event, filePath);
+      props.onUpload(event, fileName);
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);
@@ -46,23 +47,23 @@ const PlantImage: Component<Props> = (props) => {
 
   return (
     <div
-      style={{ width: props.size, "align-content": "flex-end" }}
+      style={{ width: props.width, "align-content": "flex-end" }}
       aria-live="polite"
     >
       {imageUrl() ? (
         <img
           src={imageUrl()!}
-          alt={imageUrl() ? "Слика" : "Нема слика"}
+          alt="Слика"
           class="plant image"
-          style={{ height: `${props.size}px`, width: `${props.size}px` }}
+          style={{ width: `${props.width}px` }}
         />
       ) : (
         <div
           class="plant no-image"
-          style={{ height: `${props.size}px`, width: `${props.size}px` }}
+          style={{ width: `${props.width}px` }}
         />
       )}
-      <div style={{ width: `${props.size}px` }}>
+      <div style={{ width: `${props.width}px` }}>
         <label class="btn btn-outline-secondary btn-lg my-2" for="single">
           {uploading() ? "Прикачување ..." : "Прикачи слика"}
         </label>

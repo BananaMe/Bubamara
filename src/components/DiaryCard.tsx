@@ -1,7 +1,7 @@
+import "bootstrap/scss/bootstrap.scss";
 import { Button, Card, ListGroup } from "solid-bootstrap";
 import { Component, createEffect, createSignal } from "solid-js";
-import { supabase } from "../supabaseClient";
-import "bootstrap/scss/bootstrap.scss";
+import { downloadImage } from "./download-image";
 
 
 export interface DiaryCardProps {
@@ -32,25 +32,8 @@ const DiaryCard: Component<DiaryCardProps> = (props) => {
 
   const [resolvedImageUrl, setResolvedImageUrl] = createSignal<string>();
   createEffect(() => {
-    if (imageUrl) downloadImage(imageUrl);
+    if (imageUrl) downloadImage(imageUrl, setResolvedImageUrl);
   });
-
-  const downloadImage = async (path: string) => {
-    try {
-      const { data, error } = await supabase.storage
-        .from("images")
-        .download(path);
-      if (error) {
-        throw error;
-      }
-      const url = URL.createObjectURL(data);
-      setResolvedImageUrl(url);
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error downloading image: ", error.message);
-      }
-    }
-  };
 
   return (
     <div>

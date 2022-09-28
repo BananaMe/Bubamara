@@ -10,11 +10,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 10rem;
+}
 
 body, #root, html {
   height: 100%;
   background-color: #f2f2f2;
   width: 100%;
+  display: table;
 }
 #root {
   overflow: auto;

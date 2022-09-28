@@ -1,6 +1,6 @@
-import { createForm } from "@felte/solid";
 import { AuthSession } from "@supabase/supabase-js";
-import { Component, createEffect, createSignal } from "solid-js";
+import { FloatingLabel, Form } from "solid-bootstrap";
+import { Component, createSignal } from "solid-js";
 import { supabase } from "../supabaseClient";
 import PlantImage from "./PlantImage";
 
@@ -60,70 +60,27 @@ const DiaryEntry: Component<Props> = ({ session }) => {
         style={{ "align-content": "flex-start", "text-align": "start" }}
       >
         <h2>Внеси ново растение во вашиот дневник</h2>
-        <div style={{ "align-content": "flex-start" }}>
-          <label for="name">Име: </label>
-          <input
-            id="name"
-            type="text"
-            class="my-2"
-            value={name() || ""}
-            onChange={(e) => setName(e.currentTarget.value)}
-          />
-        </div>
-        <div>
-          <label for="tip">Вид на Растение: </label>
-          <input
-            id="tip"
-            type="text"
-            class="mb-2"
-            value={tip() || ""}
-            onChange={(e) => setTip(e.currentTarget.value)}
-          />
-        </div>
-        <div>
-          <label for="dateBought">Датум земено: </label>
-          <input
-            id="dateBought"
-            type="date"
-            class="mb-2"
-            value={dateBought()?.toISOString().split('T')[0] || ""}
-            onChange={(e) => setDateBought(new Date(e.currentTarget.value))}
-          />
-        </div>
-        <div>
-          <label for="placement">Положба: </label>
-          <input
-            id="placement"
-            type="text"
-            class="mb-2"
-            value={placement() || ""}
-            onChange={(e) => setPlacement(e.currentTarget.value)}
-          />
-        </div>
-        <div>
-          <label for="lastWater">Последно полевање: </label>
-          <input
-            id="lastWater"
-            type="date"
-            class="mb-2"
-            value={lastWater()?.toISOString().split('T')[0] || ""}
-            onChange={(e) => setLastWater(new Date(e.currentTarget.value))}
-          />
-        </div>
-        <div>
-          <label for="lastFertilizer">Последна прихрана: </label>
-          <input
-            id="lastFertilizer"
-            type="date"
-            class="mb-2"
-            value={lastFertilizer()?.toISOString().split('T')[0] || ""}
-            onChange={(e) =>
-              setLasteFertilizer(new Date(e.currentTarget.value))
-            }
-          />
-        </div>
+
+        <FloatingLabel controlId="name" label="Име" class="my-2">
+          <Form.Control type="text" value={name() || ""} onChange={(e) => setName(e.currentTarget.value)} placeholder="name" />
+        </FloatingLabel>
+        <FloatingLabel controlId="species" label="Вид на растение" class="mb-2">
+          <Form.Control type="text" value={tip() || ""} onChange={(e) => setTip(e.currentTarget.value)} placeholder="type" />
+        </FloatingLabel>
+        <FloatingLabel controlId="dateBought" label="Датум земено" class="mb-2">
+          <Form.Control type="date" value={dateBought()?.toISOString().split('T')[0] || ""} onChange={(e) => setDateBought(new Date(e.currentTarget.value))} placeholder="date bought" />
+        </FloatingLabel>
+        <FloatingLabel controlId="placement" label="Положба" class="mb-2">
+          <Form.Control type="text" value={placement() || ""} onChange={(e) => setPlacement(e.currentTarget.value)} placeholder="placement" />
+        </FloatingLabel>
+        <FloatingLabel controlId="lastWater" label="Последно полевање" class="mb-2">
+          <Form.Control type="date" value={lastWater()?.toISOString().split('T')[0] || ""} onChange={(e) => setLastWater(new Date(e.currentTarget.value))} placeholder="last watered" />
+        </FloatingLabel>
+        <FloatingLabel controlId="lastFertilizer" label="Последна прихрана" class="mb-2">
+          <Form.Control type="date" value={lastFertilizer()?.toISOString().split('T')[0] || ""} onChange={(e) => setLasteFertilizer(new Date(e.currentTarget.value))} placeholder="last fertilized" />
+        </FloatingLabel>
         <PlantImage
-          size={100}
+          width={300}
           onUpload={(e: Event, url: string) => {
             setImageUrl(url);
           }}
@@ -138,14 +95,6 @@ const DiaryEntry: Component<Props> = ({ session }) => {
             {loading() ? "Внеси" : "Внеси"}
           </button>
         </div>
-        {/* <button
-          type="button"
-          class="btn "
-          style={{"background-color": "#bbd9c4"}}
-          onClick={() => supabase.auth.signOut()}
-        >
-          Sign Out
-        </button> */}
       </form>
     </div>
   );
