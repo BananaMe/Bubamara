@@ -77,9 +77,8 @@ const App: Component = () => {
                   <Card
                     title="Светлина"
                     subtitle="Почетен курс"
-                    text="почетен курс за светлина учење"
-                    onButtonClick={() => setPage("lecture")}
-                    buttonText="Линк до курсот"
+                    text="почетен курс за светлина"
+                    buttonText="Доаѓа наскоро..."
                   />
                 </Row>
               </Container>

@@ -7,7 +7,7 @@ export interface CardProps {
   text: string;
   buttonText: string;
   color?: string;
-  onButtonClick: () => void;
+  onButtonClick?: () => void;
 }
 
 const Cards: Component<CardProps> = (props) => {
@@ -15,7 +15,7 @@ const Cards: Component<CardProps> = (props) => {
     title,
     subtitle,
     text,
-    onButtonClick,
+    onButtonClick = () => undefined,
     buttonText,
     color = "#bbd9c4",
   } = props;

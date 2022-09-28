@@ -2,7 +2,7 @@ import { createForm } from "@felte/solid";
 import _ from "lodash";
 import { Button } from "solid-bootstrap";
 import { Component, createSignal, Show } from "solid-js";
-import data from "../Quiz.json";
+import data from "../QuizOrchid.json";
 import QuizResults from "./QuizResults";
 import RadioGroup from "./RadioGroup";
 
