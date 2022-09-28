@@ -2,13 +2,19 @@ import { createForm } from "@felte/solid";
 import _ from "lodash";
 import { Button } from "solid-bootstrap";
 import { Component, createSignal, Show } from "solid-js";
-import data from "../QuizOrchid.json";
 import QuizResults from "./QuizResults";
 import RadioGroup from "./RadioGroup";
 
-const questions = _.shuffle(data.questions);
-
-const QuizOrchid: Component = () => {
+interface Question {
+  text: string;
+  incorrect: string[];
+  correct: string;
+}
+interface QuizProps {
+  questions: Question[];
+}
+const Quiz: Component<QuizProps> = (props) => {
+  const questions = _.shuffle(props.questions ?? []);
   const [questionNo, setQuestionNo] = createSignal(0);
   const [score, setScore] = createSignal(0);
   const [info, setInfo] = createSignal<string | undefined>();
@@ -99,4 +105,4 @@ const QuizOrchid: Component = () => {
   );
 };
 
-export default QuizOrchid;
+export default Quiz;

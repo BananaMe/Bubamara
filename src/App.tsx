@@ -17,8 +17,10 @@ import Footer from "./components/Footer";
 import LectureOrchid from "./components/lectures/LectureOrchid";
 import LectureSoil from "./components/lectures/LectureSoil";
 import Navigation from "./components/Navigation";
-import Quiz from "./components/QuizOrchid";
+import Quiz from "./components/Quiz";
 import logo from "./logo.svg";
+import QuizOrchid from './QuizOrchid.json';
+import QuizSoil from './QuizSoil.json';
 import { supabase } from "./supabaseClient";
 
 const App: Component = () => {
@@ -90,7 +92,7 @@ const App: Component = () => {
                     title="Почва"
                     subtitle="Тест"
                     text="Тест на знаење за почетниот курс „Почва“"
-                    onButtonClick={() => setPage("quizOrchid")}
+                    onButtonClick={() => setPage("quizSoil")}
                     buttonText="Линк до тестот"
                   />
                   <Card
@@ -144,7 +146,10 @@ const App: Component = () => {
               <LectureSoil />
             </Match>
             <Match when={page() == "quizOrchid"}>
-              <Quiz />
+              <Quiz questions={QuizOrchid.questions} />
+            </Match>
+            <Match when={page() == "quizSoil"}>
+              <Quiz questions={QuizSoil.questions} />
             </Match>
             <Match when={page() == "diary"}>
               <Diary session={session()!} />
