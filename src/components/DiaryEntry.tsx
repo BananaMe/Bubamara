@@ -67,16 +67,16 @@ const DiaryEntry: Component<Props> = ({ session }) => {
           <Form.Control type="text" value={tip() || ""} onChange={(e) => setTip(e.currentTarget.value)} placeholder="type" />
         </FloatingLabel>
         <FloatingLabel controlId="dateBought" label="Датум земено" class="mb-2">
-          <Form.Control type="date" value={dateBought()?.toISOString().split('T')[0] || ""} onChange={(e) => setDateBought(new Date(e.currentTarget.value))} placeholder="date bought" />
+          <Form.Control onFocus={(e) => e.target.showPicker()} type="date" value={dateBought()?.toISOString().split('T')[0] || ""} onChange={(e) => setDateBought(new Date(e.currentTarget.value))} placeholder="date bought" />
         </FloatingLabel>
         <FloatingLabel controlId="placement" label="Положба" class="mb-2">
           <Form.Control type="text" value={placement() || ""} onChange={(e) => setPlacement(e.currentTarget.value)} placeholder="placement" />
         </FloatingLabel>
         <FloatingLabel controlId="lastWater" label="Последно полевање" class="mb-2">
-          <Form.Control type="date" value={lastWater()?.toISOString().split('T')[0] || ""} onChange={(e) => setLastWater(new Date(e.currentTarget.value))} placeholder="last watered" />
+          <Form.Control onFocus={(e) => e.target.showPicker()} type="date" value={lastWater()?.toISOString().split('T')[0] || ""} onChange={(e) => setLastWater(new Date(e.currentTarget.value))} placeholder="last watered" />
         </FloatingLabel>
         <FloatingLabel controlId="lastFertilizer" label="Последна прихрана" class="mb-2">
-          <Form.Control type="date" value={lastFertilizer()?.toISOString().split('T')[0] || ""} onChange={(e) => setLasteFertilizer(new Date(e.currentTarget.value))} placeholder="last fertilized" />
+          <Form.Control onFocus={(e) => e.target.showPicker()} type="date" value={lastFertilizer()?.toISOString().split('T')[0] || ""} onChange={(e) => setLasteFertilizer(new Date(e.currentTarget.value))} placeholder="last fertilized" />
         </FloatingLabel>
         <PlantImage
           width={300}
