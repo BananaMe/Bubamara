@@ -60,8 +60,8 @@ const Diary: Component<Props> = ({ session }) => {
             }}>
               {
                 diaries().length
-                  ? diaries().map(({ name, tip, date_bought, placement, last_water, last_fertilizer, image_url }) => (
-                    <DiaryCard name={name} tip={tip} dateBought={date_bought} placement={placement} lastWater={last_water} lastFertilizer={last_fertilizer} imageUrl={image_url} />
+                  ? diaries().map(({ id, name, tip, date_bought, placement, last_water, last_fertilizer, image_url }) => (
+                    <DiaryCard onDelete={fetchDiary} id={id} name={name} tip={tip} dateBought={date_bought} placement={placement} lastWater={last_water} lastFertilizer={last_fertilizer} imageUrl={image_url} />
                   ))
                   : "Внесете ваше растение!"
               }

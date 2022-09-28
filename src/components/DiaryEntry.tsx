@@ -37,7 +37,6 @@ const DiaryEntry: Component<Props> = ({ session }) => {
         image_url: imageUrl(),
       };
 
-      console.log(inserts);
       let { error } = await supabase.from("diaries").insert(inserts);
 
       if (error) {

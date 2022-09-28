@@ -1,10 +1,12 @@
 import "bootstrap/scss/bootstrap.scss";
 import { Button, Card, ListGroup } from "solid-bootstrap";
 import { Component, createEffect, createSignal } from "solid-js";
+import { supabase } from "../supabaseClient";
 import { downloadImage } from "./download-image";
 
 
 export interface DiaryCardProps {
+  id: number;
   name: string;
   tip: string;
   dateBought: string;
@@ -15,9 +17,11 @@ export interface DiaryCardProps {
   onButtonClick?: string;
   buttonText?: string;
   color?: string;
+  onDelete?: () => void
 }
 const DiaryCard: Component<DiaryCardProps> = (props) => {
   const {
+    id,
     name,
     tip,
     dateBought,
@@ -27,6 +31,7 @@ const DiaryCard: Component<DiaryCardProps> = (props) => {
     imageUrl,
     onButtonClick,
     buttonText,
+    onDelete = () => undefined,
     // color = "#bbd9c4",
   } = props;
 
@@ -34,6 +39,24 @@ const DiaryCard: Component<DiaryCardProps> = (props) => {
   createEffect(() => {
     if (imageUrl) downloadImage(imageUrl, setResolvedImageUrl);
   });
+
+  const deleteEntry = async (e: Event) => {
+    e.preventDefault();
+
+    try {
+      let { error } = await supabase.from("diaries").delete().match({ id });
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    } finally {
+      onDelete();
+    }
+  };
 
   return (
     <div>
@@ -56,7 +79,7 @@ const DiaryCard: Component<DiaryCardProps> = (props) => {
             <ListGroup.Item style="padding: 5px">Последна прихрана: {lastFertilizer}</ListGroup.Item>
           </ListGroup>
           <Button variant="secondary">Ажурирај</Button>
-          <Button variant="secondary">Избриши</Button>
+          <Button onClick={deleteEntry} variant="secondary">Избриши</Button>
         </Card.Body>
       </Card>
     </div>
