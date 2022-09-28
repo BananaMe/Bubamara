@@ -14,7 +14,8 @@ import Auth from "./components/Auth";
 import Card from "./components/Cards";
 import Diary from "./components/Diary";
 import Footer from "./components/Footer";
-import LectureOrchid from "./components/LectureOrchid";
+import LectureOrchid from "./components/lectures/LectureOrchid";
+import LectureSoil from "./components/lectures/LectureSoil";
 import Navigation from "./components/Navigation";
 import Quiz from "./components/QuizOrchid";
 import logo from "./logo.svg";
@@ -63,14 +64,14 @@ const App: Component = () => {
                     title="Почва"
                     subtitle="Почетен курс"
                     text="почетен курс за проучување на почва"
-                    onButtonClick={() => setPage("lecture")}
+                    onButtonClick={() => setPage("lectureSoil")}
                     buttonText="Линк до курсот"
                   />
                   <Card
                     title="Орхидеа"
                     subtitle="Почетен курс"
                     text="почетен курс за чување орхидеи"
-                    onButtonClick={() => setPage("lecture")}
+                    onButtonClick={() => setPage("lectureOrchid")}
                     buttonText="Линк до курсот"
                   />
                   <Card
@@ -111,7 +112,7 @@ const App: Component = () => {
               </Container>
             </Match>
             <Match when={page() == "lecture"}>
-            <Container class={styles.App}>
+              <Container class={styles.App}>
                 <Row class="justify-content-around">
                   <Card
                     title="Почва"
@@ -136,6 +137,12 @@ const App: Component = () => {
                   />
                 </Row>
               </Container>
+            </Match>
+            <Match when={page() == "lectureOrchid"}>
+              <LectureOrchid />
+            </Match>
+            <Match when={page() == "lectureSoil"}>
+              <LectureSoil />
             </Match>
             <Match when={page() == "quizOrchid"}>
               <Quiz />

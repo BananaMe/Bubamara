@@ -1,6 +1,6 @@
 import { Component } from "solid-js";
 import Masonry from "solid-masonry";
-import "../masonry.css";
+import "../../masonry.css";
 
 const Gallery: Component = () => {
   const data = [

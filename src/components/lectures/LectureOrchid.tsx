@@ -1,16 +1,11 @@
 import { Container, Tab, Tabs } from "solid-bootstrap";
 import { Component, createSignal } from "solid-js";
-import Gallery from "./GalleryOrchid";
-import LectureLightFlower from "./LectureOrchidLightFlower";
-import LectureOrchidBasic from "./LectureOrchidBasic";
-import LecturePropagation from "./LectureOrchidPropagation";
-import LectureOrchidSoil from "./LectureOrchidSoil";
-import LectureSoil from "./LectureOrchidSoil";
-import LectureOrchidWater from "./LectureOrchidWater";
-import LectureWater from "./LectureOrchidWater";
-import LectureOrchidPropagation from "./LectureOrchidPropagation";
-import LectureOrchidLightFlower from "./LectureOrchidLightFlower";
 import GalleryOrchid from "./GalleryOrchid";
+import LectureOrchidBasic from "./LectureOrchidBasic";
+import LectureOrchidLightFlower from "./LectureOrchidLightFlower";
+import LectureOrchidPropagation from "./LectureOrchidPropagation";
+import LectureOrchidSoil from "./LectureOrchidSoil";
+import LectureOrchidWater from "./LectureOrchidWater";
 
 const LectureOrchid: Component = () => {
   const [key, setKey] = createSignal("lectureBasic");
