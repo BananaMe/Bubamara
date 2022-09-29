@@ -106,8 +106,7 @@ const App: Component = () => {
                     title="Светлина"
                     subtitle="Тест"
                     text="Тест на знаење за почетниот курс „Светлина“"
-                    onButtonClick={() => setPage("quizOrchid")}
-                    buttonText="Линк до тестот"
+                    buttonText="Доаѓа наскоро..."
                   />
                 </Row>
               </Container>
