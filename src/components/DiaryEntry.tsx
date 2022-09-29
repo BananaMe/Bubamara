@@ -6,45 +6,68 @@ import PlantImage from "./PlantImage";
 
 interface DiaryEntryProps {
   session: AuthSession;
-  onSuccessfullySubmitted: () => void;
+  onDone: () => void;
+  edit?: boolean;
+  data?: any;
 }
 
 const DiaryEntry: Component<DiaryEntryProps> = (props) => {
-  const { session, onSuccessfullySubmitted } = props;
+  const { session, onDone, edit = false, data } = props;
   const [loading, setLoading] = createSignal(false);
 
-  const [name, setName] = createSignal<string | null>(null);
-  const [tip, setTip] = createSignal<string | null>(null);
-  const [dateBought, setDateBought] = createSignal<Date>();
-  const [placement, setPlacement] = createSignal<string | null>(null);
-  const [lastWater, setLastWater] = createSignal<Date | null>(null);
-  const [lastFertilizer, setLasteFertilizer] = createSignal<Date | null>(null);
-  const [imageUrl, setImageUrl] = createSignal<string | null>(null);
+  const [name, setName] = createSignal<string | null>(data?.name);
+  const [tip, setTip] = createSignal<string | null>(data?.tip);
+  const [dateBought, setDateBought] = createSignal<Date | null>(data ? new Date(data?.dateBought) : null);
+  const [placement, setPlacement] = createSignal<string | null>(data?.placement);
+  const [lastWater, setLastWater] = createSignal<Date | null>(data ? new Date(data?.lastWater) : null);
+  const [lastFertilizer, setLasteFertilizer] = createSignal<Date | null>(data ? new Date(data?.lastFertilizer) : null);
+  const [imageUrl, setImageUrl] = createSignal<string | null>(data?.imageUrl);
 
-  const updateDiary = async (e: Event) => {
+  const getMappedData = () => ({
+    name: name(),
+    tip: tip(),
+    date_bought: dateBought(),
+    placement: placement(),
+    last_water: lastWater(),
+    last_fertilizer: lastFertilizer(),
+    image_url: imageUrl(),
+  });
+
+  const addDiary = async (e: Event) => {
     e.preventDefault();
 
     try {
       setLoading(true);
       const { user } = session;
 
-      const inserts = {
-        uuid: user.id,
-        name: name(),
-        tip: tip(),
-        date_bought: dateBought(),
-        placement: placement(),
-        last_water: lastWater(),
-        last_fertilizer: lastFertilizer(),
-        image_url: imageUrl(),
-      };
-
-      let { error } = await supabase.from("diaries").insert(inserts);
+      let { error } = await supabase.from("diaries").insert({ uuid: user.id, ...getMappedData() });
 
       if (error) {
         throw error;
       } else {
-        onSuccessfullySubmitted();
+        onDone();
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateDiary = async (e: Event) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+
+      console.log(getMappedData());
+      let { error } = await supabase.from("diaries").update(getMappedData()).match({ id: data.id });
+
+      if (error) {
+        throw error;
+      } else {
+        onDone();
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -58,7 +81,7 @@ const DiaryEntry: Component<DiaryEntryProps> = (props) => {
   return (
     <div aria-live="polite">
       <form
-        onSubmit={updateDiary}
+        onSubmit={edit ? updateDiary : addDiary}
         class="form-widget"
         style={{ "align-content": "flex-start", "text-align": "start" }}
       >

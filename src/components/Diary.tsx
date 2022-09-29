@@ -12,8 +12,9 @@ interface Props {
 const Diary: Component<Props> = ({ session }) => {
   const [loading, setLoading] = createSignal(true);
   const [diaries, setDiaries] = createSignal([]);
-  const fetchDiary = async () => {
+  const [selectedEntry, setSelectedEntry] = createSignal();
 
+  const fetchDiary = async () => {
     try {
       setLoading(true);
 
@@ -40,6 +41,16 @@ const Diary: Component<Props> = ({ session }) => {
 
   const [showInput, setShowInput] = createSignal<boolean>(false);
 
+  const reload = () => {
+    fetchDiary();
+    setShowInput(false);
+    setSelectedEntry();
+  }
+
+  const updateDiary = (data: any) => {
+    setSelectedEntry(data);
+    setShowInput(true);
+  }
 
   return (
     <div>
@@ -61,17 +72,14 @@ const Diary: Component<Props> = ({ session }) => {
               {
                 diaries().length
                   ? diaries().map(({ id, name, tip, date_bought, placement, last_water, last_fertilizer, image_url }) => (
-                    <DiaryCard onDelete={fetchDiary} id={id} name={name} tip={tip} dateBought={date_bought} placement={placement} lastWater={last_water} lastFertilizer={last_fertilizer} imageUrl={image_url} />
+                    <DiaryCard onDelete={fetchDiary} onEditEntry={updateDiary} id={id} name={name} tip={tip} dateBought={date_bought} placement={placement} lastWater={last_water} lastFertilizer={last_fertilizer} imageUrl={image_url} />
                   ))
                   : "Внесете ваше растение!"
               }
             </Row>
           }
         >
-          <DiaryEntry onSuccessfullySubmitted={() => {
-            fetchDiary();
-            setShowInput(false);
-          }} session={session} />
+          <DiaryEntry edit={!!selectedEntry()} onDone={reload} session={session} data={selectedEntry()} />
         </Show>
       </div>
     </div >

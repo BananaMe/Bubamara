@@ -18,6 +18,7 @@ export interface DiaryCardProps {
   buttonText?: string;
   color?: string;
   onDelete?: () => void
+  onEditEntry?: (data: any) => void
 }
 const DiaryCard: Component<DiaryCardProps> = (props) => {
   const {
@@ -32,6 +33,7 @@ const DiaryCard: Component<DiaryCardProps> = (props) => {
     onButtonClick,
     buttonText,
     onDelete = () => undefined,
+    onEditEntry = () => undefined,
     // color = "#bbd9c4",
   } = props;
 
@@ -78,7 +80,16 @@ const DiaryCard: Component<DiaryCardProps> = (props) => {
             <ListGroup.Item style="padding: 5px">Последно полевање: {lastWater}</ListGroup.Item>
             <ListGroup.Item style="padding: 5px">Последна прихрана: {lastFertilizer}</ListGroup.Item>
           </ListGroup>
-          <Button variant="secondary">Ажурирај</Button>
+          <Button onClick={() => onEditEntry({
+            id,
+            name,
+            tip,
+            dateBought,
+            placement,
+            lastWater,
+            lastFertilizer,
+            imageUrl
+          })} variant="secondary">Ажурирај</Button>
           <Button onClick={deleteEntry} variant="secondary">Избриши</Button>
         </Card.Body>
       </Card>
