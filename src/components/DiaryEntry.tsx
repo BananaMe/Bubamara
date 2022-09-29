@@ -1,7 +1,8 @@
 import { AuthSession } from "@supabase/supabase-js";
 import { FloatingLabel, Form } from "solid-bootstrap";
-import { Component, createSignal } from "solid-js";
+import { Component, createEffect, createSignal } from "solid-js";
 import { supabase } from "../supabaseClient";
+import { downloadImage } from "./download-image";
 import PlantImage from "./PlantImage";
 
 interface DiaryEntryProps {
@@ -15,13 +16,13 @@ const DiaryEntry: Component<DiaryEntryProps> = (props) => {
   const { session, onDone, edit = false, data } = props;
   const [loading, setLoading] = createSignal(false);
 
-  const [name, setName] = createSignal<string | null>(data?.name);
-  const [tip, setTip] = createSignal<string | null>(data?.tip);
+  const [name, setName] = createSignal<string | undefined>(data?.name);
+  const [tip, setTip] = createSignal<string | undefined>(data?.tip);
   const [dateBought, setDateBought] = createSignal<Date | null>(data ? new Date(data?.dateBought) : null);
-  const [placement, setPlacement] = createSignal<string | null>(data?.placement);
+  const [placement, setPlacement] = createSignal<string | undefined>(data?.placement);
   const [lastWater, setLastWater] = createSignal<Date | null>(data ? new Date(data?.lastWater) : null);
   const [lastFertilizer, setLasteFertilizer] = createSignal<Date | null>(data ? new Date(data?.lastFertilizer) : null);
-  const [imageUrl, setImageUrl] = createSignal<string | null>(data?.imageUrl);
+  const [imageUrl, setImageUrl] = createSignal<string | undefined>(data?.imageUrl);
 
   const getMappedData = () => ({
     name: name(),
@@ -110,6 +111,7 @@ const DiaryEntry: Component<DiaryEntryProps> = (props) => {
           onUpload={(e: Event, url: string) => {
             setImageUrl(url);
           }}
+          defaultImageUrl={imageUrl()}
         />
         <div>
           <button

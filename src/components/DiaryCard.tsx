@@ -38,6 +38,7 @@ const DiaryCard: Component<DiaryCardProps> = (props) => {
   } = props;
 
   const [resolvedImageUrl, setResolvedImageUrl] = createSignal<string>();
+
   createEffect(() => {
     if (imageUrl) downloadImage(imageUrl, setResolvedImageUrl);
   });

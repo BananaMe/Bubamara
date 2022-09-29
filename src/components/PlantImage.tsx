@@ -1,15 +1,21 @@
-import { Component, createSignal, JSX } from "solid-js";
+import { Component, createEffect, createSignal, JSX } from "solid-js";
 import { supabase } from "../supabaseClient";
 import { downloadImage } from "./download-image";
 
 interface Props {
   width: number;
   onUpload: (event: Event, filePath: string) => void;
+  defaultImageUrl: string;
 }
 
 const PlantImage: Component<Props> = (props) => {
   const [imageUrl, setImageUrl] = createSignal<string | null>(null);
   const [uploading, setUploading] = createSignal(false);
+
+  createEffect(() => {
+    if (props?.defaultImageUrl) downloadImage(props?.defaultImageUrl, setImageUrl);
+  });
+
 
   const uploadImage: JSX.EventHandler<HTMLInputElement, Event> = async (
     event
